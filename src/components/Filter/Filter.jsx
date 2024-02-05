@@ -1,20 +1,25 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { setFilter } from '../../redux/filter/filter-slice';
 import css from "./Filter.module.css"
 
-export const Filter = ({ handleFindChange, state: { filter } }) => {
-  const handleChange = e => {
+export const Filter = () => {
+  const dispatch = useDispatch();
+  const filter = useSelector((state) => state.filter);
+
+  const handleChange = (e) => {
     const inputValue = e.target.value;
 
     if (!validateName(inputValue)) {
       alert('Please enter a valid name for filtering');
       return;
     }
-
-    handleFindChange(e);
+ dispatch(setFilter(inputValue));
   };
-  const handleBackspace = e => {
+
+  const handleBackspace = (e) => {
     if (e.key === 'Backspace' && filter.length > 0) {
       const updatedFilter = filter.slice(0, -1);
-      handleFindChange({ target: { value: updatedFilter } });
+      dispatch(setFilter(updatedFilter));
     }
   };
 
