@@ -11,6 +11,7 @@ const ContactForm = ()=> {
     number: '',
  });
   const contacts = useSelector(getAllContacts);
+  //console.log('contacts:', contacts);
   const dispatch = useDispatch();
 
   const handleSubmit = e => {
