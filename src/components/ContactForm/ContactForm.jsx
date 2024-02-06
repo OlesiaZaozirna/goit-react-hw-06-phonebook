@@ -11,12 +11,19 @@ const ContactForm = ()=> {
     number: '',
  });
   const contacts = useSelector(getAllContacts);
-  console.log('contacts:', contacts);
+ 
   const dispatch = useDispatch();
 
   const handleSubmit = e => {
     e.preventDefault();
-    
+
+    //перевірка на дублювання номера
+    const isUnique = !contacts.some(contact => contact.name === formData.name);
+    if (!isUnique) {
+      alert('This contact already exists');
+      return;
+    }
+  
     if (!validateName(formData.name)) {
       alert('Please enter a valid name');
       return;
